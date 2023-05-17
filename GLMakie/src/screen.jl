@@ -588,7 +588,8 @@ Doesn't destroy the screen and instead frees it to be re-used again, if `reuse=t
 """
 function Base.close(screen::Screen; reuse=true)
     @debug("Close screen!")
-    set_screen_visibility!(screen, false)
+    # https://github.com/MakieOrg/Makie.jl/issues/2453
+    # set_screen_visibility!(screen, false)
     stop_renderloop!(screen; close_after_renderloop=false)
     if screen.window_open[] # otherwise we trigger an infinite loop of closing
         screen.window_open[] = false
